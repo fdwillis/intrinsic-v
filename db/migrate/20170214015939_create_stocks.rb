@@ -2,12 +2,15 @@ class CreateStocks < ActiveRecord::Migration
   def change
     create_table :stocks do |t|
       t.string :symbol
-      t.integer :equity
-      t.float :price
-      t.integer :shares
+      t.float :equity, default: 0
+      t.float :price, default: 0
+      t.float :shares, default: 0
+      t.float :coupon, default: 0
+      t.float :old_bv, default: 0
+      t.float :bv_years, default: 0
       t.boolean :admin_only
       t.boolean :admin_fav
-      t.integer :net_income
+      t.float :net_income, default: 0
       t.string :quarter
 
       t.timestamps null: false

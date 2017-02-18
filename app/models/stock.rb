@@ -1,8 +1,30 @@
 class Stock < ActiveRecord::Base
   has_many :logs
+  validates_uniqueness_of :symbol
 
+  def self.intrinsic(symbol)
+    @stockx = Stock.find_by(symbol: symbol)
+
+    bvci=bv_perc_change(@stockx.symbol)
+
+    parr=(@current_bv)*((1+bvci/100.to_f) ** 10)
+
+    r = ENV['FED_NOTE'].to_f/100.to_f
+
+    c=@stockx.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
+  end
 
   protected
+
+  def self.bv_perc_change(symbol)
+    @current_bv=book_value(symbol)
+    old_bv= @stockx.old_bv
+    years= @stockx.bv_years
+    upper=(1/years.to_f)
+    base=(@current_bv/old_bv.to_f)
+    a=base**upper
+    100*(a-1)
+  end
 
   def self.book_value(symbol)
     Stock.get_stock(symbol)

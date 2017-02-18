@@ -1,6 +1,6 @@
 <%= form_for(@admin_action) do |f| %>
   <% if @admin_action.errors.any? %>
-    <div id="error_explanation">
+    <div id="error">
       <h2><%= pluralize(@admin_action.errors.count, "error") %> prohibited this admin_action from being saved:</h2>
 
       <ul>
@@ -14,6 +14,9 @@
   <%= f.text_field :symbol, placeholder: "Enter Symbol" %>
   <%= f.number_field :equity, placeholder: "Enter Equity (in millions)" %>
   <%= f.number_field :shares, placeholder: "Enter Shares Outstanding (in millions)" %>
+  <%= f.number_field :old_bv, placeholder: "Oldest BV to date" %>
+  <%= f.number_field :bv_years, placeholder: "Years between BV" %>
+  <%= f.number_field :coupon, placeholder: "coupon/dividend" %>
   <%= f.number_field :net_income, placeholder: "Enter Net Income (in millions)" %>
 
   <div class="actions">
