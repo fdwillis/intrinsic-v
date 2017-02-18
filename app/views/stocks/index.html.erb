@@ -1,0 +1,14 @@
+<table class="table table-hover">
+  <tr>
+    <th class="text-center">Symbol</th>
+    <th class="text-center">Action</th>
+    <th class="text-center">Price</th>
+  </tr>
+  <% @stocks.each do |s| %>
+    <tr>
+      <td class='text-center'><%= link_to s.upcase, stock_path(s) %></td>
+      <td class='text-center'>Buy</td>
+      <td class='text-center'><%= number_to_currency(StockQuote::Stock.quote(s).ask.to_f, precision:2) %></td>
+    </tr>
+  <% end %>
+</table>
