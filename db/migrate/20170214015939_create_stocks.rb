@@ -12,6 +12,7 @@ class CreateStocks < ActiveRecord::Migration
       t.boolean :admin_fav
       t.float :net_income, default: 0
       t.string :quarter
+      t.string :quarter_year
 
       t.timestamps null: false
     end

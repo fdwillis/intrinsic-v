@@ -18,6 +18,9 @@
   <%= f.number_field :bv_years, placeholder: "Years between BV" %>
   <%= f.number_field :coupon, placeholder: "coupon/dividend" %>
   <%= f.number_field :net_income, placeholder: "Enter Net Income (in millions)" %>
+  <%= f.select :quarter, ["Q1", "Q2", "Q3", "Q4"] %>
+  <%= select_year(Date.today, start_year: DateTime.now.strftime("%Y").to_i - 5, end_year: DateTime.now.strftime("%Y").to_i)%>
+
 
   <div class="actions">
     <%= f.submit %>
