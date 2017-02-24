@@ -11,7 +11,7 @@ class Stock < ActiveRecord::Base
 
     r = ENV['FED_NOTE'].to_f/100.to_f
 
-    c=@stockx.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
+    cx=@stockx.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
   end
 
   protected

@@ -1,3 +1,8 @@
+
+January-March (Q1)
+April-June (Q2)
+July-September (Q3)
+October-December (Q4).
 <%= form_for(@admin_action) do |f| %>
   <% if @admin_action.errors.any? %>
     <div id="error">
@@ -19,8 +24,7 @@
   <%= f.number_field :coupon, placeholder: "coupon/dividend" %>
   <%= f.number_field :net_income, placeholder: "Enter Net Income (in millions)" %>
   <%= f.select :quarter, ["Q1", "Q2", "Q3", "Q4"] %>
-  <%= select_year(Date.today, start_year: DateTime.now.strftime("%Y").to_i - 5, end_year: DateTime.now.strftime("%Y").to_i)%>
-
+  <%= f.select :quarter_year, [*(DateTime.now.strftime("%Y").to_i - 5)..DateTime.now.strftime("%Y").to_i].reverse%>
 
   <div class="actions">
     <%= f.submit %>

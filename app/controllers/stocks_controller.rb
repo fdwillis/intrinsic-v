@@ -26,6 +26,7 @@ class StocksController < ApplicationController
 
     respond_to do |format|
       if @admin_action.save
+        debugger
         format.html { redirect_to root_path, notice: 'Stock was successfully created.' }
         format.json { render :show, status: :created, location: @admin_action }
       else
