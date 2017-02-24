@@ -3,7 +3,7 @@ January-March (Q1)
 April-June (Q2)
 July-September (Q3)
 October-December (Q4).
-<%= form_for(@admin_action) do |f| %>
+<%= form_for(@admin_action, :url => {:action => "update", :id => @admin_action.symbol, :controller => "stocks"}) do |f| %>
   <% if @admin_action.errors.any? %>
     <div id="error">
       <h2><%= pluralize(@admin_action.errors.count, "error") %> prohibited this admin_action from being saved:</h2>
@@ -17,14 +17,18 @@ October-December (Q4).
   <% end %>
 
   <%= f.text_field :symbol, placeholder: "Enter Symbol" %>
-  <%= f.number_field :equity, placeholder: "Enter Equity (in millions)" %>
-  <%= f.number_field :shares, placeholder: "Enter Shares Outstanding (in millions)" %>
   <%= f.number_field :old_bv, placeholder: "Oldest BV to date" %>
   <%= f.number_field :bv_years, placeholder: "Years between BV" %>
-  <%= f.number_field :coupon, placeholder: "coupon/dividend" %>
-  <%= f.number_field :net_income, placeholder: "Enter Net Income (in millions)" %>
-  <%= f.select :quarter, ["Q1", "Q2", "Q3", "Q4"] %>
-  <%= f.select :quarter_year, [*(DateTime.now.strftime("%Y").to_i - 5)..DateTime.now.strftime("%Y").to_i].reverse%>
+  <div id="logs">
+    <%= f.fields_for :logs do |log| %>
+      <%= render 'log_fields', f: log %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'add log', f, :logs %>
+    </div>
+  </div>
+
+  
 
   <div class="actions">
     <%= f.submit %>

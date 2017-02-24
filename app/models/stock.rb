@@ -1,17 +1,20 @@
 class Stock < ActiveRecord::Base
   has_many :logs
   validates_uniqueness_of :symbol
+  accepts_nested_attributes_for :logs, reject_if: :all_blank, allow_destroy: true
 
   def self.intrinsic(symbol)
-    @stockx = Stock.find_by(symbol: symbol)
+    # @stockx = Stock.find_by(symbol: symbol)
 
-    bvci=bv_perc_change(@stockx.symbol)
+    # bvci=bv_perc_change(@stockx.symbol)
 
-    parr=(@current_bv)*((1+bvci/100.to_f) ** 10)
+    # parr=(@current_bv)*((1+bvci/100.to_f) ** 10)
 
-    r = ENV['FED_NOTE'].to_f/100.to_f
+    # r = ENV['FED_NOTE'].to_f/100.to_f
 
-    cx=@stockx.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
+    # cx=@stockx.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
+
+    100
   end
 
   protected

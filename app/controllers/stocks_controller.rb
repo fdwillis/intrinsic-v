@@ -23,10 +23,11 @@ class StocksController < ApplicationController
   # POST /admin_actions.json
   def create
     @admin_action = Stock.new(stock_params)
+    
 
     respond_to do |format|
       if @admin_action.save
-        debugger
+        
         format.html { redirect_to root_path, notice: 'Stock was successfully created.' }
         format.json { render :show, status: :created, location: @admin_action }
       else
@@ -39,9 +40,10 @@ class StocksController < ApplicationController
   # PATCH/PUT /admin_actions/1
   # PATCH/PUT /admin_actions/1.json
   def update
+    
     respond_to do |format|
       if @admin_action.update(stock_params)
-        format.html { redirect_to @admin_action, notice: 'Admin action was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Admin action was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_action }
       else
         format.html { render :edit }
@@ -63,6 +65,7 @@ class StocksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stock
+    
       @admin_action = Stock.find_by(symbol: params[:id])
 
       if !@admin_action.present?
@@ -73,6 +76,6 @@ class StocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_params
-      params.require(:stock).permit(:quarter_year, :quarter, :bv_years, :old_bv, :coupon, :net_income, :admin_fav, :admin_only, :shares, :equity, :price, :symbol)
+      params.require(:stock).permit(:symbol, :old_bv, :bv_years, :admin_only, :admin_fav, logs_attributes: [:id, :price, :equity, :shares,:net_income, :month, :day, :bv, :year, :quarter, :coupon, :_destroy])
     end
 end

@@ -9,7 +9,6 @@ class CreateLogs < ActiveRecord::Migration
       t.integer :day
       t.integer :bv
       t.integer :year
-      t.integer :quarter_year
 
       t.string :quarter
       

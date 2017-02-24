@@ -17,20 +17,19 @@ ActiveRecord::Schema.define(version: 20170214024551) do
   enable_extension "plpgsql"
 
   create_table "logs", force: :cascade do |t|
-    t.integer  "price",        default: 0
-    t.integer  "equity",       default: 0
-    t.integer  "shares",       default: 0
-    t.integer  "net_income",   default: 0
+    t.integer  "price",      default: 0
+    t.integer  "equity",     default: 0
+    t.integer  "shares",     default: 0
+    t.integer  "net_income", default: 0
     t.integer  "month"
     t.integer  "day"
     t.integer  "bv"
     t.integer  "year"
-    t.integer  "quarter_year"
     t.string   "quarter"
-    t.float    "coupon",       default: 0.0
+    t.float    "coupon",     default: 0.0
     t.integer  "stock_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "logs", ["stock_id"], name: "index_logs_on_stock_id", using: :btree
