@@ -2,8 +2,6 @@
     <%= f.number_field :equity, placeholder: "Equity" %>
     <%= f.number_field :shares, placeholder: "Shares" %>
     <%= f.number_field :net_income, placeholder: "Net Income" %>
-    <%= f.number_field :month, placeholder: "Month", maxlimit: 12 %>
-    <%= f.number_field :day, placeholder: "Day", maxlimit: 31 %>
     <%= f.number_field :coupon, placeholder: "Coupon", step: "any" %>
     <%= f.select :quarter, ["Q1", "Q2", "Q3", "Q4"] %>
     <%= f.select :year, [*(DateTime.now.strftime("%Y").to_i - 5)..DateTime.now.strftime("%Y").to_i].reverse%>

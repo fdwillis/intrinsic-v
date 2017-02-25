@@ -5,8 +5,6 @@ class CreateLogs < ActiveRecord::Migration
       t.integer :equity, default: 0
       t.integer :shares, default: 0
       t.integer :net_income, default: 0
-      t.integer :month
-      t.integer :day
       t.integer :bv, default: 0
       t.integer :year
 
