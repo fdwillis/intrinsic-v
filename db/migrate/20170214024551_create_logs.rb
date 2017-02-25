@@ -7,7 +7,7 @@ class CreateLogs < ActiveRecord::Migration
       t.integer :net_income, default: 0
       t.integer :month
       t.integer :day
-      t.integer :bv
+      t.integer :bv, default: 0
       t.integer :year
 
       t.string :quarter

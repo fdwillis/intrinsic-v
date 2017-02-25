@@ -1,4 +1,57 @@
-<p id="notice"><%= notice %></p>
-
 <%= link_to 'Edit', edit_stock_path(@admin_action.symbol) %> |
 <%= link_to 'Back', stocks_path %>
+
+
+<section>
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-12">
+              <h4 class="uppercase mb80">Historical</h4>
+              <div class="tabbed-content button-tabs vertical">
+                  <ul class="tabs">
+                    <% @admin_action.logs.map(&:year).uniq.each do |year| %>
+                      <li>
+                          <div class="tab-title">
+                              <span><%= year %></span>
+                          </div>
+                          <div class="tab-content">
+                            <table class="table table-hover">
+                              <tr>
+
+                                <th class='col-md-1'></th>
+                                <th class='col-md-1'>Price</th>
+                                <th class='col-md-1'>Equity</th>
+                                <th class='col-md-1'>Shares</th> 
+                                <th class='col-md-1'>Income</th>
+                                <th class='col-md-1'>Dividend</th>
+                                <th class='col-md-1'>BV</th>
+                                <th class='col-md-1'>EPS</th>
+                                <th class='col-md-1'>PE Ratio</th>
+                                <th class='col-md-1'>Safety</th>
+                              </tr>
+                              <% @admin_action.logs.where(year: year).each do |log| %>  
+                                <tr>
+                                  <td><%= log.quarter %></td>
+                                  <td><%= log.price %></td>
+                                  <td><%= log.equity %></td>
+                                  <td><%= log.shares %></td>
+                                  <td><%= log.net_income %></td>
+                                  <td><%= log.coupon %></td>
+                                  <td><%= Stock.book_value(log.id, nil) %></td>
+                                  <td><%= Stock.eps(log.id, nil) %></td>
+                                  <td><%= Stock.pe_ratio(log.id, nil) %></td>
+                                  <td><%= Stock.safety(log.id, nil) %></td>
+                                </tr>
+                              <% end %>
+                            </table>
+                          </div>
+                      </li>
+                    <% end %>
+                  </ul>
+              </div>
+              
+          </div>
+      </div>
+      
+  </div>
+</section>

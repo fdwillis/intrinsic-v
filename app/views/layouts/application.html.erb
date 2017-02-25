@@ -2,29 +2,43 @@
 <html>
 <head>
   <title>IntrinsicV</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/assets/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="/assets/theme.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="/assets/custom.css" rel="stylesheet" type="text/css" media="all" />
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-  <div class="main-container">
-    <% if flash[:notice] %>
-      <div class="text-center alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h3 class="tex-center"><%= flash[:notice] %></h3>
-      </div>
-    <% elsif flash[:error] %>
-      <div class="text-center alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h3 class="tex-center"><%= flash[:error] %></h3>
-      </div>
-    <% elsif flash[:alert] %>
-      <div class="text-center alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h3 class="tex-center"><%= flash[:alert] %></h3>
-      </div>
-    <% end %>
-    <%= yield %>
-  </div>
-</body>
+  <body>
+    <div class="nav-container">
+      <% if flash[:notice] %>
+        <div class="text-center alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h3 class="tex-center"><%= flash[:notice] %></h3>
+        </div>
+      <% elsif flash[:error] %>
+        <div class="text-center alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h3 class="tex-center"><%= flash[:error] %></h3>
+        </div>
+      <% elsif flash[:alert] %>
+        <div class="text-center alert alert-warning">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h3 class="tex-center"><%= flash[:alert] %></h3>
+        </div>
+      <% end %>
+    </div>
+      
+    <div class="main-container">
+      <%= yield %>
+    </div>
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/bootstrap.min.js"></script>
+    <script src="/assets/parallax.js"></script>
+    <script src="/assets/scripts.js"></script>
+  </body>
 </html>

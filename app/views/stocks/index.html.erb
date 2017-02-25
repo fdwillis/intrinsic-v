@@ -9,7 +9,7 @@
     <tr>
       <td class='text-center'><%= link_to s.upcase, stock_path(s) %></td>
       <td class='text-center'>Buy</td>
-      <td class='text-center'><%= number_to_currency(StockQuote::Stock.quote(s).ask.to_f, precision:2) %></td>
+      <td class='text-center' id='live_price'><%= number_to_currency(StockQuote::Stock.quote(s).ask.to_f, precision:2) %></td>
       <td class='text-center'><%= number_to_currency(Stock.intrinsic(Stock.find_by(symbol: s).logs.order(:year).reverse.first.id), precision: 2) %></td>
     </tr>
   <% end %>

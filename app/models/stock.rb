@@ -10,7 +10,7 @@ class Stock < ActiveRecord::Base
 
     parr=(@current_bv)*((1+bvci/100.to_f) ** 10)
 
-    r = ENV['FED_NOTE'].to_f/100.to_f
+    r = 2.38/100.to_f
 
     cx=@log.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
   end
@@ -18,7 +18,7 @@ class Stock < ActiveRecord::Base
   protected
 
   def self.bv_perc_change(symbol)
-    @current_bv=book_value(symbol)
+    @current_bv=book_value(nil,symbol)
     old_bv= @log.stock.old_bv
     years= @log.stock.bv_years
     upper=(1/years.to_f)
@@ -27,25 +27,35 @@ class Stock < ActiveRecord::Base
     100*(a-1)
   end
 
-  def self.book_value(symbol)
-    Stock.get_stock(symbol)
-    return (@log.equity.to_d / @log.shares.to_d).round(2)
+  def self.book_value(log_id, symbol)
+    if log_id.present? && !symbol.present?
+      @log = Log.find(log_id) 
+      return (@log.equity.to_d / @log.shares.to_d).round(2)
+    elsif !log_id.present? && symbol.present?
+      @symbol = Stock.find_by(symbol: symbol) 
+      return (@symbol.logs.map(&:equity).sum.to_d / @symbol.logs.map(&:shares).sum.to_d).round(2)
+    end
   end
 
-  def self.eps(symbol)
-    Stock.get_stock(symbol)
-    return (@log.net_income.to_d / @log.shares.to_d).round(2)
+  def self.eps(log_id, symbol)
+    if log_id.present? && !symbol.present?
+      @log = Log.find(log_id) 
+      return (@log.net_income.to_d / @log.shares.to_d).round(2)
+    end
   end
 
-  def self.pe_ratio(symbol)
-    Stock.get_stock(symbol)
-    return (@log.price.to_f / Stock.eps(symbol) ).round(2)
+  def self.pe_ratio(log_id, symbol)
+    if log_id.present? && !symbol.present?
+      @log = Log.find(log_id) 
+      return (@log.price.to_f / Stock.eps(log_id, nil) ).round(2)      
+    end
   end
 
-  def self.safety(symbol)
-    Stock.get_stock(symbol)
-    return (1.to_d / Stock.eps(symbol) ).round(2)
-    
+  def self.safety(log_id, symbol)
+    if log_id.present? && !symbol.present?
+      Stock.get_stock(log_id)
+      return (1.to_d / Stock.eps(log_id, nil) ).round(2)
+    end
   end
 
   def self.get_stock(symbol)
