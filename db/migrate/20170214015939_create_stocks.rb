@@ -3,8 +3,8 @@ class CreateStocks < ActiveRecord::Migration
     create_table :stocks do |t|
       t.string :symbol
       
-      t.float :old_bv, default: 0
-      t.float :bv_years, default: 0
+      t.float :old_bv, null: false
+      t.float :bv_years, null: false
 
       t.boolean :admin_only
       t.boolean :admin_fav

@@ -17,29 +17,29 @@ ActiveRecord::Schema.define(version: 20170214024551) do
   enable_extension "plpgsql"
 
   create_table "logs", force: :cascade do |t|
-    t.integer  "price",      default: 0
-    t.integer  "equity",     default: 0
-    t.integer  "shares",     default: 0
-    t.integer  "net_income", default: 0
-    t.integer  "bv",         default: 0
+    t.integer  "price",      null: false
+    t.integer  "equity",     null: false
+    t.integer  "shares",     null: false
+    t.integer  "net_income", null: false
+    t.integer  "bv",         null: false
     t.integer  "year"
     t.string   "quarter"
-    t.float    "coupon",     default: 0.0
+    t.float    "coupon",     null: false
     t.integer  "stock_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "logs", ["stock_id"], name: "index_logs_on_stock_id", using: :btree
 
   create_table "stocks", force: :cascade do |t|
     t.string   "symbol"
-    t.float    "old_bv",     default: 0.0
-    t.float    "bv_years",   default: 0.0
+    t.float    "old_bv",     null: false
+    t.float    "bv_years",   null: false
     t.boolean  "admin_only"
     t.boolean  "admin_fav"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "logs", "stocks"

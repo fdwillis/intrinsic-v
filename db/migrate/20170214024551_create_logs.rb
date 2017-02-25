@@ -1,16 +1,16 @@
 class CreateLogs < ActiveRecord::Migration
   def change
     create_table :logs do |t|
-      t.integer :price, default: 0
-      t.integer :equity, default: 0
-      t.integer :shares, default: 0
-      t.integer :net_income, default: 0
-      t.integer :bv, default: 0
+      t.integer :price, null: false
+      t.integer :equity, null: false
+      t.integer :shares, null: false
+      t.integer :net_income, null: false
+      t.integer :bv, null: false
       t.integer :year
 
       t.string :quarter
       
-      t.float :coupon, default: 0
+      t.float :coupon, null: false
 
       t.belongs_to :stock, index: true, foreign_key: true
 

@@ -18,9 +18,9 @@
   </div>
 <% end %>
 
-<%= f.text_field :symbol, placeholder: "Enter Symbol" %>
-<%= f.number_field :old_bv, placeholder: "Oldest BV to date" %>
-<%= f.number_field :bv_years, placeholder: "Years between BV" %>
+<%= f.text_field :symbol, placeholder: "Enter Symbol", required: true %>
+<%= f.number_field :old_bv, placeholder: "Oldest BV to date", required: true %>
+<%= f.number_field :bv_years, placeholder: "Years between BV", required: true %>
 <div id="logs">
   <%= f.fields_for :logs do |log| %>
     <%= render 'log_fields', f: log %>

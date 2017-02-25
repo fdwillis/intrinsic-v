@@ -1,9 +1,9 @@
 <div class="nested-fields">
-    <%= f.number_field :equity, placeholder: "Equity" %>
-    <%= f.number_field :shares, placeholder: "Shares" %>
-    <%= f.number_field :net_income, placeholder: "Net Income" %>
-    <%= f.number_field :coupon, placeholder: "Coupon", step: "any" %>
-    <%= f.select :quarter, ["Q1", "Q2", "Q3", "Q4"] %>
-    <%= f.select :year, [*(DateTime.now.strftime("%Y").to_i - 5)..DateTime.now.strftime("%Y").to_i].reverse%>
+    <%= f.number_field :equity, placeholder: "Equity", required: true %>
+    <%= f.number_field :shares, placeholder: "Shares", required: true %>
+    <%= f.number_field :net_income, placeholder: "Net Income", required: true %>
+    <%= f.number_field :coupon, placeholder: "Coupon", step: "any", required: true %>
+    <%= f.select :quarter, ["Q1", "Q2", "Q3", "Q4"], required: true %>
+    <%= f.select :year, [*(DateTime.now.strftime("%Y").to_i - 5)..DateTime.now.strftime("%Y").to_i].reverse, required: true%>
     <%= link_to_remove_association "remove log", f %>
 </div>

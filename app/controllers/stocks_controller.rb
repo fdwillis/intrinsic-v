@@ -24,14 +24,14 @@ class StocksController < ApplicationController
   def create
     @admin_action = Stock.new(stock_params)
     
-
+    
     respond_to do |format|
       if @admin_action.save
         
         format.html { redirect_to root_path, notice: 'Stock was successfully created.' }
         format.json { render :show, status: :created, location: @admin_action }
       else
-        format.html { render :new }
+        format.html { redirect_to new_stock_path }
         format.json { render json: @admin_action.errors, status: :unprocessable_entity }
       end
     end
