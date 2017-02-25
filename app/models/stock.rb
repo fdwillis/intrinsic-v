@@ -3,27 +3,24 @@ class Stock < ActiveRecord::Base
   validates_uniqueness_of :symbol
   accepts_nested_attributes_for :logs, reject_if: :all_blank, allow_destroy: true
 
-  def self.intrinsic(symbol)
-    @stockx = Stock.find_by(symbol: symbol)
-    @log = @stockx.logs.order(:year).reverse.first
+  def self.intrinsic(log_id)
+    @log = Log.find(log_id)
 
-    bvci=bv_perc_change(@stockx.symbol)
+    bvci=bv_perc_change(@log.stock.symbol)
 
     parr=(@current_bv)*((1+bvci/100.to_f) ** 10)
 
     r = ENV['FED_NOTE'].to_f/100.to_f
 
     cx=@log.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
-
-    
   end
 
   protected
 
   def self.bv_perc_change(symbol)
     @current_bv=book_value(symbol)
-    old_bv= @stockx.old_bv
-    years= @stockx.bv_years
+    old_bv= @log.stock.old_bv
+    years= @log.stock.bv_years
     upper=(1/years.to_f)
     base=(@current_bv/old_bv.to_f)
     a=base**upper
