@@ -1,6 +1,7 @@
 <h1>Editing Admin Action</h1>
-
-<%= render 'form' %>
+<%= form_for(@admin_action, :url => {:action => "update", :id => @admin_action.symbol, :controller => "stocks"}) do |f| %>
+  <%= render 'form', f: f %>
+<% end %>
 
 <%= link_to 'Show', @admin_action %> |
 <%= link_to 'Back', stocks_path %>

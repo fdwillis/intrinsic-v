@@ -3,34 +3,32 @@ January-March (Q1)
 April-June (Q2)
 July-September (Q3)
 October-December (Q4).
-<%= form_for(@admin_action, :url => {:action => "update", :id => @admin_action.symbol, :controller => "stocks"}) do |f| %>
-  <% if @admin_action.errors.any? %>
-    <div id="error">
-      <h2><%= pluralize(@admin_action.errors.count, "error") %> prohibited this admin_action from being saved:</h2>
+<% if @admin_action.errors.any? %>
+  <div id="error">
+    <h2><%= pluralize(@admin_action.errors.count, "error") %> prohibited this admin_action from being saved:</h2>
 
-      <ul>
-      <% @admin_action.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <%= f.text_field :symbol, placeholder: "Enter Symbol" %>
-  <%= f.number_field :old_bv, placeholder: "Oldest BV to date" %>
-  <%= f.number_field :bv_years, placeholder: "Years between BV" %>
-  <div id="logs">
-    <%= f.fields_for :logs do |log| %>
-      <%= render 'log_fields', f: log %>
+    <ul>
+    <% @admin_action.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
     <% end %>
-    <div class="links">
-      <%= link_to_add_association 'add log', f, :logs %>
-    </div>
-  </div>
-
-  
-
-  <div class="actions">
-    <%= f.submit %>
+    </ul>
   </div>
 <% end %>
+
+<%= f.text_field :symbol, placeholder: "Enter Symbol" %>
+<%= f.number_field :old_bv, placeholder: "Oldest BV to date" %>
+<%= f.number_field :bv_years, placeholder: "Years between BV" %>
+<div id="logs">
+  <%= f.fields_for :logs do |log| %>
+    <%= render 'log_fields', f: log %>
+  <% end %>
+  <div class="links">
+    <%= link_to_add_association 'add log', f, :logs %>
+  </div>
+</div>
+
+
+
+<div class="actions">
+  <%= f.submit %>
+</div>

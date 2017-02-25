@@ -4,17 +4,18 @@ class Stock < ActiveRecord::Base
   accepts_nested_attributes_for :logs, reject_if: :all_blank, allow_destroy: true
 
   def self.intrinsic(symbol)
-    # @stockx = Stock.find_by(symbol: symbol)
+    @stockx = Stock.find_by(symbol: symbol)
+    @log = @stockx.logs.order(:year).reverse.first
 
-    # bvci=bv_perc_change(@stockx.symbol)
+    bvci=bv_perc_change(@stockx.symbol)
 
-    # parr=(@current_bv)*((1+bvci/100.to_f) ** 10)
+    parr=(@current_bv)*((1+bvci/100.to_f) ** 10)
 
-    # r = ENV['FED_NOTE'].to_f/100.to_f
+    r = ENV['FED_NOTE'].to_f/100.to_f
 
-    # cx=@stockx.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
+    cx=@log.coupon*(1-(1/((1+r) ** 10)))/r+parr/((1+r) ** 10) 
 
-    100
+    
   end
 
   protected
@@ -31,17 +32,17 @@ class Stock < ActiveRecord::Base
 
   def self.book_value(symbol)
     Stock.get_stock(symbol)
-    return (@stock.equity.to_d / @stock.shares.to_d).round(2)
+    return (@log.equity.to_d / @log.shares.to_d).round(2)
   end
 
   def self.eps(symbol)
     Stock.get_stock(symbol)
-    return (@stock.net_income.to_d / @stock.shares.to_d).round(2)
+    return (@log.net_income.to_d / @log.shares.to_d).round(2)
   end
 
   def self.pe_ratio(symbol)
     Stock.get_stock(symbol)
-    return (@stock.price.to_f / Stock.eps(symbol) ).round(2)
+    return (@log.price.to_f / Stock.eps(symbol) ).round(2)
   end
 
   def self.safety(symbol)
