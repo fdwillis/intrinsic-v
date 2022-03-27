@@ -19,6 +19,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'bootstrap-sass'
 gem "cocoon"
 gem "figaro"
+gem 'iex-ruby-client'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
