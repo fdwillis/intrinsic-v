@@ -27,6 +27,7 @@ class Stock < ActiveRecord::Base
     100*(a-1)
   end
 
+
   def self.book_value(log_id, symbol)
     if log_id.present? && !symbol.present?
       @log = Log.find(log_id) 
@@ -45,21 +46,37 @@ class Stock < ActiveRecord::Base
   end
 
   def self.pe_ratio(log_id, symbol)
+    # for every P/E dollars i spend i should receive 1 dollar a year later
     if log_id.present? && !symbol.present?
       @log = Log.find(log_id) 
       return (@log.price.to_f / Stock.eps(log_id, nil) ).round(2)      
     end
   end
 
-  def self.safety(log_id, symbol)
+  def self.safety(log_id, symbol, ask)
     if log_id.present? && !symbol.present?
       Stock.get_stock(log_id)
-      return (1.to_d / Stock.eps(log_id, nil) ).round(2)
+      return (ask.to_d / Stock.eps(log_id, nil) ).round(2)
     end
   end
 
   def self.get_stock(symbol)
-    @stock = Stock.where(symbol: symbol).first
+    @stock = Stock.find_by(symbol: symbol)
   end
 
 end
+
+
+
+=begin
+
+debt to equity < .50 (all debt compared to equity)
+current assets / current liabilities > 1.50 (debt in the next 12 months)
+  
+
+use projected earnings and eps for prediction of next set of individual/corporate data
+Future projections should be visible but inactive - greyed out with the ability to only view. limited clicking and interaction for more detail)
+
+
+countdown to the next snapshot to gamify account balances
+=end

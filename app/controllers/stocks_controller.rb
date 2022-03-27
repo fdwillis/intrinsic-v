@@ -3,6 +3,7 @@ class StocksController < ApplicationController
 
   def index
     @stocks = Stock.all.map(&:symbol)
+    debugger
   end
 
   # GET /admin_actions/1
